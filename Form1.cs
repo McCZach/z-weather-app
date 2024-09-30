@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace z_weather_app
 {
@@ -12,12 +13,13 @@ namespace z_weather_app
 
         // https://open-meteo.com/en/docs#temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&forecast_days=1
         // https://open-meteo.com/en/docs/geocoding-api#name=St.+Louis
-        //                                                      SPACES IN CITY NAME BECOME +'s!!!!!!!!!!!
+        // https://www.newtonsoft.com/json/help/html/DeserializeObject.htm
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             const string apiUrl = "https://geocoding-api.open-meteo.com/v1/search?name=";
             const string appendUrl = "&count=1&language=en&format=json";
+            string geoloc = "";
 
             try
             {
@@ -30,9 +32,7 @@ namespace z_weather_app
                     var result = client.GetAsync(endpoint).Result;
                     var json = result.Content.ReadAsStringAsync().Result;
 
-                    string location = getLocation(json.ToString());
-
-
+                    geoloc = getGeoLocation(json.ToString());
 
                     MessageBox.Show(json.ToString());
                 }
@@ -57,12 +57,16 @@ namespace z_weather_app
             }
         }
 
-        private string getLocation(string request)
+        private string getGeoLocation(string response)
         {
             float latitude, longitude;
-            string geolocation = "";
 
-            return geolocation;
+            
+            MessageBox.Show(response);
+            
+
+
+            return response;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
