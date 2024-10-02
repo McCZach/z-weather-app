@@ -33,10 +33,6 @@
             txtCityName = new TextBox();
             lblDegreeUnit = new Label();
             txtDegreeUnit = new TextBox();
-            lblWindUnit = new Label();
-            txtWindUnit = new TextBox();
-            lblPrecipitationUnit = new Label();
-            txtPrecipitationUnit = new TextBox();
             btnExit = new Button();
             btnClear = new Button();
             btnCalculate = new Button();
@@ -86,54 +82,10 @@
             txtDegreeUnit.TabIndex = 2;
             txtDegreeUnit.TextAlign = HorizontalAlignment.Center;
             // 
-            // lblWindUnit
-            // 
-            lblWindUnit.Font = new Font("Verdana", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWindUnit.Location = new Point(15, 127);
-            lblWindUnit.Name = "lblWindUnit";
-            lblWindUnit.Size = new Size(179, 64);
-            lblWindUnit.TabIndex = 4;
-            lblWindUnit.Text = "Wind Speed Unit:";
-            lblWindUnit.TextAlign = ContentAlignment.BottomRight;
-            // 
-            // txtWindUnit
-            // 
-            txtWindUnit.BorderStyle = BorderStyle.FixedSingle;
-            txtWindUnit.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtWindUnit.Location = new Point(200, 147);
-            txtWindUnit.Margin = new Padding(3, 4, 3, 4);
-            txtWindUnit.Multiline = true;
-            txtWindUnit.Name = "txtWindUnit";
-            txtWindUnit.Size = new Size(188, 30);
-            txtWindUnit.TabIndex = 3;
-            txtWindUnit.TextAlign = HorizontalAlignment.Center;
-            // 
-            // lblPrecipitationUnit
-            // 
-            lblPrecipitationUnit.Font = new Font("Verdana", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPrecipitationUnit.Location = new Point(4, 211);
-            lblPrecipitationUnit.Name = "lblPrecipitationUnit";
-            lblPrecipitationUnit.Size = new Size(190, 64);
-            lblPrecipitationUnit.TabIndex = 6;
-            lblPrecipitationUnit.Text = "Precipitation Unit:";
-            lblPrecipitationUnit.TextAlign = ContentAlignment.BottomRight;
-            // 
-            // txtPrecipitationUnit
-            // 
-            txtPrecipitationUnit.BorderStyle = BorderStyle.FixedSingle;
-            txtPrecipitationUnit.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPrecipitationUnit.Location = new Point(200, 232);
-            txtPrecipitationUnit.Margin = new Padding(3, 4, 3, 4);
-            txtPrecipitationUnit.Multiline = true;
-            txtPrecipitationUnit.Name = "txtPrecipitationUnit";
-            txtPrecipitationUnit.Size = new Size(188, 30);
-            txtPrecipitationUnit.TabIndex = 4;
-            txtPrecipitationUnit.TextAlign = HorizontalAlignment.Center;
-            // 
             // btnExit
             // 
             btnExit.Font = new Font("Verdana", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnExit.Location = new Point(149, 524);
+            btnExit.Location = new Point(158, 347);
             btnExit.Margin = new Padding(3, 4, 3, 4);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(102, 40);
@@ -145,7 +97,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Verdana", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClear.Location = new Point(149, 435);
+            btnClear.Location = new Point(158, 258);
             btnClear.Margin = new Padding(3, 4, 3, 4);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(102, 40);
@@ -157,7 +109,7 @@
             // btnCalculate
             // 
             btnCalculate.Font = new Font("Verdana", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCalculate.Location = new Point(125, 348);
+            btnCalculate.Location = new Point(134, 171);
             btnCalculate.Margin = new Padding(3, 4, 3, 4);
             btnCalculate.Name = "btnCalculate";
             btnCalculate.Size = new Size(152, 40);
@@ -171,14 +123,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(185, 165, 194);
-            ClientSize = new Size(430, 600);
+            ClientSize = new Size(430, 407);
             Controls.Add(btnCalculate);
             Controls.Add(btnClear);
             Controls.Add(btnExit);
-            Controls.Add(txtPrecipitationUnit);
-            Controls.Add(lblPrecipitationUnit);
-            Controls.Add(txtWindUnit);
-            Controls.Add(lblWindUnit);
             Controls.Add(txtDegreeUnit);
             Controls.Add(lblDegreeUnit);
             Controls.Add(txtCityName);
@@ -197,10 +145,6 @@
         private TextBox txtCityName;
         private Label lblDegreeUnit;
         private TextBox txtDegreeUnit;
-        private Label lblWindUnit;
-        private TextBox txtWindUnit;
-        private Label lblPrecipitationUnit;
-        private TextBox txtPrecipitationUnit;
         private Button btnExit;
         private Button btnClear;
         private Button btnCalculate;
