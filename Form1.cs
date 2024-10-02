@@ -6,6 +6,7 @@ namespace z_weather_app
 {
     public partial class Form1 : Form
     {
+    
         public Form1()
         {
             InitializeComponent();
@@ -17,10 +18,17 @@ namespace z_weather_app
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            const string apiUrl = "https://geocoding-api.open-meteo.com/v1/search?name=";
-            const string appendUrl = "&count=1&language=en&format=json";
-            string geoloc = "";
+            const string GEOAPIURL = "https://geocoding-api.open-meteo.com/v1/search?name=";
+            const string GEOAPPENDURL = "&count=1&language=en&format=json";
 
+            string[] geoLocationRequest;
+            string sLatitude, sLongitude;
+
+            decimal latitude, longitude;
+
+
+            sLatitude = sLongitude = "";
+            latitude = longitude = 0m;
             try
             {
                 using (var client = new HttpClient())
@@ -28,14 +36,24 @@ namespace z_weather_app
                     string city = txtCityName.Text;
                     validCity(ref city);
 
-                    var endpoint = new Uri(apiUrl + city + appendUrl);
+                    var endpoint = new Uri(GEOAPIURL + city + GEOAPPENDURL);
                     var result = client.GetAsync(endpoint).Result;
                     var json = result.Content.ReadAsStringAsync().Result;
 
-                    geoloc = getGeoLocation(json.ToString());
+                    geoLocationRequest = json.Split([',']);
+                    foreach(string s in geoLocationRequest)
+                    {
+                        if (s.Contains("latitude"))
+                            sLatitude = s;
+                        if (s.Contains("longitude"))
+                            sLongitude = s;
+                    }
 
-                    MessageBox.Show(json.ToString());
+                    latitude = decimal.Parse(sLatitude.Substring(sLatitude.IndexOf(":") + 1));
+                    longitude = decimal.Parse(sLongitude.Substring(sLongitude.IndexOf(":") + 1));
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -48,25 +66,9 @@ namespace z_weather_app
         private void validCity(ref string city)
         {
             if (city.Any(char.IsDigit))
-            {
                 throw new Exception("Please enter a valid city name!");
-            }
             else
-            {
                 city.Replace(" ", "+");
-            }
-        }
-
-        private string getGeoLocation(string response)
-        {
-            float latitude, longitude;
-
-            
-            MessageBox.Show(response);
-            
-
-
-            return response;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
