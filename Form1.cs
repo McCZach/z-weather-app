@@ -1,6 +1,5 @@
 using System;
 using System.Net.Http;
-using Newtonsoft.Json;
 
 namespace z_weather_app
 {
@@ -17,13 +16,20 @@ namespace z_weather_app
             string WEATHERAPIURL = "https://api.open-meteo.com/v1/forecast?";
 
             string[] geoLocationRequest;
-            string sLatitude, sLongitude;
+            string[] weatherTimeRequest;
+            string[] weatherTempRequest;
 
             decimal latitude, longitude;
-
-
-            sLatitude = sLongitude = "";
             latitude = longitude = 0m;
+
+            DateTime curTime = DateTime.Now;
+            if (curTime.Minute >= 30)
+            {
+                curTime = curTime.AddHours(1);
+            }
+            curTime = curTime.AddMinutes(-curTime.Minute);
+            string currentTime = curTime.ToString("yyyy-MM-ddTHH:mm");
+
             try
             {
                 using (var client = new HttpClient())
@@ -40,13 +46,11 @@ namespace z_weather_app
                     foreach(string s in geoLocationRequest)
                     {
                         if (s.Contains("latitude"))
-                            sLatitude = s;
-                        if (s.Contains("longitude"))
-                            sLongitude = s;
-                    }
+                            latitude = Math.Round(decimal.Parse(s.Substring(s.IndexOf(":") + 1)), 2);
 
-                    latitude = Math.Round(decimal.Parse(sLatitude.Substring(sLatitude.IndexOf(":") + 1)), 2);
-                    longitude = Math.Round(decimal.Parse(sLongitude.Substring(sLongitude.IndexOf(":") + 1)), 2);
+                        if (s.Contains("longitude"))
+                            longitude = Math.Round(decimal.Parse(s.Substring(s.IndexOf(":") + 1)), 2);
+                    }
 
                     WEATHERAPIURL += "latitude=" + latitude + "&";
                     WEATHERAPIURL += "longitude=" + longitude + "&";
@@ -55,7 +59,26 @@ namespace z_weather_app
 
                 buildURL(ref WEATHERAPIURL);
 
+                using (var client = new HttpClient())
+                {
+                    var endpoint = new Uri(WEATHERAPIURL);
+                    var result = client.GetAsync(endpoint).Result;
+                    var json = result.Content.ReadAsStringAsync().Result;
+                    json = json.Substring(json.LastIndexOf("time") + 7);
 
+                    weatherTimeRequest = json.Substring(0, json.IndexOf("temperature_2m") - 3).Replace("\"","").Trim(['"', ')', ']', '}']).Split([',']);
+
+                    weatherTempRequest = json.Substring(json.LastIndexOf("temperature_2m") + 17).Trim(['"', ')', ']', '}']).Split([',']);
+                }
+
+                for (int i = 0; i < weatherTimeRequest.Length; i++)
+                {
+                    if (currentTime == weatherTimeRequest[i])
+                    {
+                        MessageBox.Show("Current temperature: " + weatherTempRequest[i], "Temperature!");
+                        break;
+                    }
+                }
             }
             catch (Exception ex)
             {
