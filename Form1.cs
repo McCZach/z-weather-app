@@ -75,7 +75,8 @@ namespace z_weather_app
                 {
                     if (currentTime == weatherTimeRequest[i])
                     {
-                        MessageBox.Show("Current temperature: " + weatherTempRequest[i], "Temperature!");
+                        MessageBox.Show("Current temperature: " + weatherTempRequest[i], "Temperature!",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                         break;
                     }
                 }
